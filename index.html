@@ -338,5 +338,77 @@ div.classList.add('order-state-canceled');
           <p>Для старых браузеров современные атрибуты иногда нуждаются в полифилле. Как правило, такой полифилл включает в себя не только JavaScript, но и CSS.</p>
           <p>Этот атрибут должен прятать элемент, действие весьма простое, для его поддержки в HTML достаточно такого CSS:</p>
           
+          <code><pre>
+&lt;style&gt;
+  [hidden] { display: none }
+&lt;/style&gt;
+
+&lt;div&gt;Текст&lt;/div&gt;
+&lt;div hidden&gt;С атрибутом hidden&lt;/div&gt;
+&lt;div id="last"&gt;Со свойством hidden&lt;/div&gt;
+
+&lt;script&gt;
+  last.hidden = true;
+&lt;/script&gt;
+          </pre></code>
+          
+          <p>Если запустить в IE11- пример выше, то <code>&lt;div hidden&gt;</code> будет скрыт, а вот последний <code>div</code>, которому поставили свойство <code>hidden</code> в JavaScript – по-прежнему виден.</p>
+          <p>Это потому что CSS «не видит» присвоенное свойство, нужно синхронизировать его в атрибут.</p>
+          <p>Вот так – уже работает:</p>
+          
+          <code><pre>
+&ltstyle&gt;
+  [hidden] { display: none }
+&lt/style&gt;
+
+&ltscript&gt;
+  if (document.documentElement.hidden === undefined) {
+    Object.defineProperty(Element.prototype, "hidden", {
+      set: function(value) {
+        this.setAttribute('hidden', value);
+      },
+      get: function() {
+        return this.getAttribute('hidden');
+      }
+    });
+  }
+&lt/script&gt;
+
+&ltdiv&gt;Текст&lt/div&gt;
+&ltdiv hidden&gt;С атрибутом hidden&lt/div&gt;
+&ltdiv id="last"&gt;Со свойством hidden&lt/div&gt;
+
+&lt;script&gt;
+  last.hidden = true;
+&lt;/script&gt;
+          </pre></code>
+          
+          <h2>Итого</h2>
+          <ul>
+            <li>Атрибуты – это то, что написано в HTML.</li>
+            <li>Свойство – это то, что находится внутри DOM-объекта.</li>
+          </ul>
+          
+          <table>
+            <caption>Таблица сравнений для атрибутов и свойств:</caption>
+            <tr>
+              <th>Свойства</th>
+              <th>Атрибуты</th>
+            </tr>
+            <tr>
+              <td>Названия регистрозависимы</td>
+              <td>Не чувствительны к регистру</td>
+            </tr>
+            <tr>
+              <td>Любое значение</td>
+              <td>Строка</td>
+            </tr>
+            <tr>
+              <td>Не видны в innerHTML</td>
+              <td>Видны в innerHTML</td>
+            </tr>
+          </table>
+          
+          
           </article>
   </body>
