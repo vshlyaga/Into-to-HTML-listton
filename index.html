@@ -18,22 +18,22 @@
       <p>Например, создадим в <code> document.body </code> новое свойство и запишем в него объект:<p>
      
       <code><pre>
-      document.body.myData = {
-        name: 'Петр',
-        familyName: 'Петрович'
-      };
+document.body.myData = {
+  name: 'Петр',
+  familyName: 'Петрович'
+};
 
-      alert( document.body.myData.name ); // Петр
+alert( document.body.myData.name ); // Петр
       </pre></code>
       
       <p>Можно добавить и новую функцию:</p>
       
       <code><pre>
-      document.body.sayHi = function() {
-        alert( this.nodeName );
-      }
+document.body.sayHi = function() {
+  alert( this.nodeName );
+}
 
-      document.body.sayHi(); // BODY, выполнилась с правильным this
+document.body.sayHi(); // BODY, выполнилась с правильным this
       </pre></code>
       
       <p>Нестандартные свойства и методы видны только в JavaScript и никак не влияют на отображение соответствующего тега.</p>
@@ -70,29 +70,29 @@
       <p>Рассмотрим отличия между DOM-свойствами и атрибутами на примере HTML-кода:</p>
       
       <code><pre>
-        &lt;body&gt;
-          &lt;div id="elem" about="Elephant" class="smiling" &gt;&lt;/div&gt;
-        &lt;/body&gt;
+&lt;body&gt;
+  &lt;div id="elem" about="Elephant" class="smiling" &gt;&lt;/div&gt;
+&lt;/body&gt;
       </pre></code>
       
       <p>Пример ниже устанавливает атрибуты и демонстрирует их особенности.</p>
       
       <code><pre>
-        &lt;body&gt;
-         &lt;div id="elem" about="Elephant"&gt; &lt;/div&gt;
+&lt;body&gt;
+ &lt;div id="elem" about="Elephant"&gt; &lt;/div&gt;
 
-         &lt;script &gt;
-          alert( elem.getAttribute('About') ); // (1) 'Elephant', атрибут получен
+ &lt;script &gt;
+  alert( elem.getAttribute('About') ); // (1) 'Elephant', атрибут получен
 
-          elem.setAttribute('Test', 123); // (2) атрибут Test установлен
-          alert( document.body.innerHTML ); // (3) в HTML видны все атрибуты!
+  elem.setAttribute('Test', 123); // (2) атрибут Test установлен
+  alert( document.body.innerHTML ); // (3) в HTML видны все атрибуты!
 
-          var attrs = elem.attributes; // (4) можно получить коллекцию атрибутов
-          for (var i = 0; i < attrs.length; i++) {
-            alert( attrs[i].name + " = " + attrs[i].value );
-          }
-         &lt;/script&gt;
-       &lt;/body&gt;
+  var attrs = elem.attributes; // (4) можно получить коллекцию атрибутов
+  for (var i = 0; i < attrs.length; i++) {
+    alert( attrs[i].name + " = " + attrs[i].value );
+  }
+ &lt;/script&gt;
+&lt;/body&gt;
       </pre></code>
         
       <p>При запуске кода выше обратите внимание:</p>
@@ -115,14 +115,14 @@
         <p>Для примера, посмотрим, что произойдет с атрибутом <code>"href"</code> при изменении свойства:</p>
         
         <code><pre>
-          &lt;a id="a" href="#"&gt;&lt;/a&gt;
-          &lt;script&gt;
-            a.href = '/';
+&lt;a id="a" href="#"&gt;&lt;/a&gt;
+&lt;script&gt;
+  a.href = '/';
 
-            alert( 'атрибут:' + a.getAttribute('href') ); // '/'
-            alert( 'свойство:' + a.href );  // полный URL
+  alert( 'атрибут:' + a.getAttribute('href') ); // '/'
+  alert( 'свойство:' + a.href );  // полный URL
 
-          &lt;/script&gt;
+&lt;/script&gt;
         </pre></code>
         
         <p>Это происходит потому, что атрибут может быть любым, а свойство <code>href</code>, <a href="">в соответствии со спецификацией W3C</a>, должно быть полной ссылкой.</p>
@@ -134,23 +134,33 @@
           <p>Работа с <code>checked</code> через атрибут и свойство:</p>
           
           <code><pre>
-            &lt;input id="input" type="checkbox" checked&gt;
+&lt;input id="input" type="checkbox" checked&gt;
 
-            &lt;script&gt;
-              // работа с checked через атрибут
-              alert( input.getAttribute('checked') ); // пустая строка
-              input.removeAttribute('checked'); // снять галочку
+&lt;script&gt;
+  // работа с checked через атрибут
+  alert( input.getAttribute('checked') ); // пустая строка
+  input.removeAttribute('checked'); // снять галочку
 
-              // работа с checked через свойство
-              alert( input.checked ); // false &lt;-- может быть только true/false
-              input.checked = true; // поставить галочку (при этом атрибут в элементе не появится)
-            &lt;/script&gt;
+  // работа с checked через свойство
+  alert( input.checked ); // false &lt;-- может быть только true/false
+  input.checked = true; // поставить галочку (при этом атрибут в элементе не появится)
+&lt;/script&gt;
           </pre></code>
           <h3>Исходное значение value</h3>
           <p>Изменение некоторых свойств обновляет атрибут. Но это скорее исключение, чем правило.</p>
           <p><strong>Чаще синхронизация – односторонняя: свойство зависит от атрибута, но не наоборот.</strong></p>
           <p>Например, при изменении свойства <code>input.value</code> атрибут <code>input.getAttribute('value')</code> не меняется:</p>
           
+          <code><pre>
+&lt;body&gt;
+  &lt;t id="input" type="text" value="markup"&gt;
+  &lt;script&gt;
+    input.value = 'new'; // поменяли свойство
+
+    alert( input.getAttribute('value') ); // 'markup', не изменилось!
+  &lt;/script&gt;
+&lt;/body&gt;
+          </pre></code>
         
     </article>
   </body>
