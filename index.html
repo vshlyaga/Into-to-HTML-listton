@@ -178,6 +178,34 @@ document.body.sayHi(); // BODY, выполнилась с правильным t
           <p>Например, можно взять изначальное значение из атрибута и сравнить со свойством, чтобы узнать, изменилось ли значение. А при необходимости и перезаписать свойство атрибутом, отменив изменения.</p>
           
           <h2>Классы в виде строки: className</h2>
-        
-    </article>
+          <p>Атрибуту <code>"class"</code> соответствует свойство <code>className</code>.</p>
+          <p>Так как слово <code>"class"</code> является зарезервированным словом в Javascript, то при проектировании DOM решили, что соответствующее свойство будет называться <code>className</code>.</p>
+          <p>Например:</p>
+          
+          <code><pre>
+&lt;body class="main page"&gt;
+  &lt;script&gt;
+    // прочитать класс элемента
+    alert( document.body.className ); // main page
+
+    // поменять класс элемента
+    document.body.className = "class1 class2";
+  &lt;/script&gt;
+&lt;/body&gt;
+          </pre></code>
+          <p>Кстати, есть и другие атрибуты, которые называются иначе, чем свойство. Например, атрибуту <code>for (&lt;label for="..."&gt;)</code> соответствует свойство с названием <code>htmlFor</code>.</p>
+          
+          <h2>Классы в виде объекта: classList</h2>
+          <p>Атрибут <code>class</code> – уникален. Ему соответствует аж целых два свойства!</p>
+          <p>Работать с классами как со строкой неудобно. Поэтому, кроме <code>className</code>, в современных браузерах есть свойство <code>classList</code>.</p>
+          <p><strong>Свойство <code>classList</code> – это объект для работы с классами.</strong></p>
+          <p>Оно поддерживается в IE начиная с IE10, но его можно эмулировать в IE8+, подключив мини-библиотеку <a href="">classList.js</a>.</p>
+          <p>Методы <code>classList</code>:</p>
+          <ul>
+            <li><code>elem.classList.contains("class")</code> – возвращает <code>true/false</code>, в зависимости от того, есть ли у элемента класс <code>class</code>.</li>
+            <li><code>elem.classList.add/remove("class")</code> – добавляет/удаляет класс <code>class</code></li>
+            <li><code>elem.classList.toggle("class")</code> – если класса <code>class</code> нет, добавляет его, если есть – удаляет.</li>
+          </ul>
+          
+          </article>
   </body>
