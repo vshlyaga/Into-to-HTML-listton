@@ -201,11 +201,142 @@ document.body.sayHi(); // BODY, выполнилась с правильным t
           <p><strong>Свойство <code>classList</code> – это объект для работы с классами.</strong></p>
           <p>Оно поддерживается в IE начиная с IE10, но его можно эмулировать в IE8+, подключив мини-библиотеку <a href="">classList.js</a>.</p>
           <p>Методы <code>classList</code>:</p>
+          
           <ul>
             <li><code>elem.classList.contains("class")</code> – возвращает <code>true/false</code>, в зависимости от того, есть ли у элемента класс <code>class</code>.</li>
             <li><code>elem.classList.add/remove("class")</code> – добавляет/удаляет класс <code>class</code></li>
             <li><code>elem.classList.toggle("class")</code> – если класса <code>class</code> нет, добавляет его, если есть – удаляет.</li>
           </ul>
+          
+          <p>Кроме того, можно перебрать классы через <code>for</code>, так как <code>classList</code> – это псевдо-массив.</p>
+          <p>Например:</p>
+          <code><pre>
+&lt;body class="main page"&gt;
+  &lt;script&gt;
+    var classList = document.body.classList;
+
+    classList.remove('page'); // удалить класс
+    classList.add('post'); // добавить класс
+
+    for (var i = 0; i &lt; classList.length; i++) { // перечислить классы
+      alert( classList[i] ); // main, затем post
+    }
+
+    alert( classList.contains('post') ); // проверить наличие класса
+
+    alert( document.body.className ); // main post, тоже работает
+  &lt;/script&gt;
+&lt;/body&gt;
+          </pre></code>
+          
+          <h2>Нестандартные атрибуты</h2>
+          <p>У каждого элемента есть некоторый набор стандартных свойств, например для <code>&lt;a&gt;</code> это будут <code>href</code>, <code>name</code>, а для <code>&lt;img&gt;</code> это будут <code>src</code>, <code>alt</code>, и так далее.</p>
+          <p>Точный набор свойств описан в стандарте, обычно мы более-менее представляем, если пользуемся HTML, какие свойства могут быть, а какие – нет.</p>
+          <p>Для нестандартных атрибутов DOM-свойство не создаётся.</p>
+          <p>Например:</p>
+          
+          <code><pre>
+&lt;div id="elem" href="http://ya.ru" about="Elephant"&gt;&lt;/div&lt;
+
+&gt;script&lt;
+  alert( elem.id ); // elem
+  alert( elem.about ); // undefined
+&lt;/script&gt;
+          </pre></code>
+          
+          <p>Свойство является стандартным, только если оно описано в стандарте именно для этого элемента.</p>
+          <p>То есть, если назначить элементу <code>&lt;img&gt;</code> атрибут <code>href</code>, то свойство <code>img.href</code> от этого не появится. Как, впрочем, и если назначить ссылке <code>&lt;a&gt;</code> атрибут <code>alt</code>:</p>
+          
+          <code><pre>
+&lt;img id="img" href="test"&gt;
+&lt;a id="link" alt="test"&gt;&lt;/a&gt;
+
+&lt;script&gt;
+  alert( img.href ); // undefined
+  alert( link.alt ); // undefined
+&lt;/script&gt;
+          </pre></code>
+          
+          <p>Нестандартные атрибуты иногда используют для CSS.</p>
+          <p>В примере ниже для показа «состояния заказа» используется атрибут <code>order-state</code>:</p>
+          
+          <code><pre>
+&lt;style&gt;
+  .order[order-state="new"] {
+    color: green;
+  }
+
+  .order[order-state="pending"] {
+    color: blue;
+  }
+
+  .order[order-state="canceled"] {
+    color: red;
+  }
+&lt;/style&gt;
+
+&lt;div class="order" order-state="new"&gt;
+  Новый заказ.
+&lt;/div&gt;
+
+&lt;div class="order" order-state="pending"&gt;
+  Ожидающий заказ.
+&lt;/div&gt;
+
+&lt;div class="order" order-state="canceled"&gt;
+  Заказ отменён.
+&lt;/div&gt;
+          </pre></code>
+          
+          <p>Почему именно атрибут? Разве нельзя было сделать классы <code>.order-state-new</code>, <code>.order-state-pending</code>, <code>.order-state-canceled</code>?</p>
+          <p>Конечно можно, но манипулировать атрибутом из JavaScript гораздо проще.</p>
+          <p>Например, если нужно отменить заказ, неважно в каком он состоянии сейчас – это сделает код:</p>
+          
+          <code>div.setAttribute('order-state', 'canceled');</code>
+          
+          <p>Для классов – нужно знать, какой класс у заказа сейчас. И тогда мы можем снять старый класс, и поставить новый:</p>
+          
+          <code><pre>
+div.classList.remove('order-state-new');
+div.classList.add('order-state-canceled');
+          </pre></code>
+          
+          <p>…То есть, требуется больше исходной информации и надо написать больше букв. Это менее удобно.</p>
+          <p>Проще говоря, значение атрибута – произвольная строка, значение класса – это «есть» или «нет», поэтому естественно, что атрибуты «мощнее» и бывают удобнее классов как в JS так и в CSS.</p>
+          
+          <h2>Свойство dataset, data-атрибуты</h2>
+          
+          <p>С помощью нестандартных атрибутов можно привязать к элементу данные, которые будут доступны в JavaScript.</p>
+          <p>Как правило, это делается при помощи атрибутов с названиями, начинающимися на <code>data-</code>, например:</p>
+          
+          <code><pre>
+&lt;div id="elem" data-about="Elephant" data-user-location="street"&gt;
+  По улице прошёлся слон. Весьма красив и толст был он.
+&lt;/div&gt;
+&lt;script&gt;
+  alert( elem.getAttribute('data-about') ); // Elephant
+  alert( elem.getAttribute('data-user-location') ); // street
+&lt;/script&gt;
+          </pre></code>
+          
+          <p><a href="">Стандарт HTML5</a> специально разрешает атрибуты <code>data-*</code> и резервирует их для пользовательских данных.</p>
+          <p>При этом во всех браузерах, кроме IE10-, к таким атрибутам можно обратиться не только как к атрибутам, но и как к свойствам, при помощи специального свойства <code>dataset</code>:</p>
+          
+          <code><pre>
+&lt;div id="elem" data-about="Elephant" data-user-location="street"&gt;
+  По улице прошёлся слон. Весьма красив и толст был он.
+&lt;/div&gt;
+&lt;script&gt;
+  alert( elem.dataset.about ); // Elephant
+  alert( elem.dataset.userLocation ); // street
+&lt;/script&gt;
+          </pre></code>
+          
+          <p>Обратим внимание – название <code>data-user-location</code> трансформировалось в <code>dataset.userLocation</code>. Дефис превращается в большую букву.</p>
+          
+          <h2>Полифилл для атрибута hidden</h2>
+          <p>Для старых браузеров современные атрибуты иногда нуждаются в полифилле. Как правило, такой полифилл включает в себя не только JavaScript, но и CSS.</p>
+          <p>Этот атрибут должен прятать элемент, действие весьма простое, для его поддержки в HTML достаточно такого CSS:</p>
           
           </article>
   </body>
