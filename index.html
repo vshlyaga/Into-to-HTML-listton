@@ -440,6 +440,16 @@ div.classList.add('order-state-canceled');
         <footer>
           <p>Статья взята с сайта <a href="https://learn.javascript.ru">https://learn.javascript.ru</a>, ссылка на статью: <a href="https://learn.javascript.ru/attributes-and-custom-properties"></a></p> 
         </footer>
-       </blockquote>        
-      </body>
-    </html>
+      </blockquote>
+      <form name="comment-form" action="">
+        <fieldset>
+          <legend>Оставить комментарий:</legend>
+          <p><label for="name">Имя <em>*</em></label><input type="text" id="name"></p>
+          <p><label for="email">E-mail</label><input type="email" id="email"></p>
+          <p><label for="comment">Комментарий</label><input type="text" id="comment"></p>
+          <p><label for="custom-file">Выбрать файл</label><input type="file" id="custom-file"></p>
+        </fieldset>
+        <p><input type="submit" value="Отправить"></p>
+      </form>
+    </body>
+  </html>
