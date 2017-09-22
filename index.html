@@ -70,16 +70,12 @@
       <p>Рассмотрим отличия между DOM-свойствами и атрибутами на примере HTML-кода:</p>
       
       <code><pre>
-        &lt;body &gt;
-          &lt;div id="elem" about="Elephant" class="smiling" &gt;&lt;/div&gt;
-        &lt;/body &gt;
-      </pre></code>
-      
-      <code><pre>
         &lt;body&gt;
           &lt;div id="elem" about="Elephant" class="smiling" &gt;&lt;/div&gt;
         &lt;/body&gt;
       </pre></code>
+      
+      <p>Пример ниже устанавливает атрибуты и демонстрирует их особенности.</p>
       
       <code><pre>
         &lt;body&gt;
@@ -119,15 +115,42 @@
         <p>Для примера, посмотрим, что произойдет с атрибутом <code>"href"</code> при изменении свойства:</p>
         
         <code><pre>
-          &lt;a id="a" href="#"&gt&lt;/a&gt
-          &lt;script&gt
+          &lt;a id="a" href="#"&gt;&lt;/a&gt;
+          &lt;script&gt;
             a.href = '/';
 
             alert( 'атрибут:' + a.getAttribute('href') ); // '/'
             alert( 'свойство:' + a.href );  // полный URL
 
-          &lt;/script&gt
+          &lt;/script&gt;
         </pre></code>
+        
+        <p>Это происходит потому, что атрибут может быть любым, а свойство <code>href</code>, <a href="">в соответствии со спецификацией W3C</a>, должно быть полной ссылкой.</p>
+        <p>Стало быть, если мы хотим именно то, что в HTML, то нужно обращаться через атрибут.</p>
+        
+        <mark>
+          <h3>Есть и другие подобные атрибуты</h3>
+          <p>Кстати, есть и другие атрибуты, которые не копируются в точности. Например, DOM-свойство <code>input.checked</code> имеет логическое значение <code>true/false</code>, а HTML-атрибут <code>checked</code> – любое строковое, важно лишь его наличие.</p>
+          <p>Работа с <code>checked</code> через атрибут и свойство:</p>
+          
+          <code><pre>
+            &lt;input id="input" type="checkbox" checked&gt;
+
+            &lt;script&gt;
+              // работа с checked через атрибут
+              alert( input.getAttribute('checked') ); // пустая строка
+              input.removeAttribute('checked'); // снять галочку
+
+              // работа с checked через свойство
+              alert( input.checked ); // false &lt;-- может быть только true/false
+              input.checked = true; // поставить галочку (при этом атрибут в элементе не появится)
+            &lt;/script&gt;
+          </pre></code>
+          <h3>Исходное значение value</h3>
+          <p>Изменение некоторых свойств обновляет атрибут. Но это скорее исключение, чем правило.</p>
+          <p><strong>Чаще синхронизация – односторонняя: свойство зависит от атрибута, но не наоборот.</strong></p>
+          <p>Например, при изменении свойства <code>input.value</code> атрибут <code>input.getAttribute('value')</code> не меняется:</p>
+          
         
     </article>
   </body>
