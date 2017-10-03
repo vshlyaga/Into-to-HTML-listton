@@ -89,7 +89,7 @@
   alert( document.body.innerHTML ); // (3) в HTML видны все атрибуты!
 
   var attrs = elem.attributes; // (4) можно получить коллекцию атрибутов
-  for (var i = 0; i < attrs.length; i++) {
+  for (var i = 0; i &lt; attrs.length; i++) {
     alert( attrs[i].name + " = " + attrs[i].value );
   }
  &lt;/script&gt;
@@ -129,7 +129,7 @@
         <p>Это происходит потому, что атрибут может быть любым, а свойство <code>href</code>, <a href="">в соответствии со спецификацией W3C</a>, должно быть полной ссылкой.</p>
         <p>Стало быть, если мы хотим именно то, что в HTML, то нужно обращаться через атрибут.</p>
 
-        <mark>
+        
           <h3>Есть и другие подобные атрибуты</h3>
           <p>Кстати, есть и другие атрибуты, которые не копируются в точности. Например, DOM-свойство <code>input.checked</code> имеет логическое значение <code>true/false</code>, а HTML-атрибут <code>checked</code> – любое строковое, важно лишь его наличие.</p>
           <p>Работа с <code>checked</code> через атрибут и свойство:</p>
@@ -322,7 +322,7 @@ div.classList.add('order-state-canceled');
   alert( elem.getAttribute('data-about') ); // Elephant
   alert( elem.getAttribute('data-user-location') ); // street
 &lt;/script&gt;
-          <</code>
+          </code>
 
           <p><a href="">Стандарт HTML5</a> специально разрешает атрибуты <code>data-*</code> и резервирует их для пользовательских данных.</p>
           <p>При этом во всех браузерах, кроме IE10-, к таким атрибутам можно обратиться не только как к атрибутам, но и как к свойствам, при помощи специального свойства <code>dataset</code>:</p>
@@ -362,9 +362,9 @@ div.classList.add('order-state-canceled');
           <p>Вот так – уже работает:</p>
 
           <code>
-&ltstyle&gt;
+&lt;style&gt;
   [hidden] { display: none }
-&lt/style&gt;
+&lt;/style&gt;
 
 &ltscript&gt;
   if (document.documentElement.hidden === undefined) {
@@ -441,7 +441,7 @@ div.classList.add('order-state-canceled');
           <p>Статья взята с сайта <a href="https://learn.javascript.ru">https://learn.javascript.ru</a>, ссылка на статью: <a href="https://learn.javascript.ru/attributes-and-custom-properties">https://learn.javascript.ru/attributes-and-custom-properties</a></p> 
         </footer>
       </blockquote>
-      <form name="comment-form" action="">
+      <form name="comment-form">
         <fieldset>
           <legend>Оставить комментарий:</legend>
           <p><label for="name">Имя <em>*</em></label><input type="text" id="name"></p>
