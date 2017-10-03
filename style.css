@@ -70,3 +70,7 @@ form{
 form>p{
   text-align:center;
 }
+
+code{
+  white-space: pre;
+}
