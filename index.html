@@ -365,7 +365,7 @@ div.classList.add('order-state-canceled');
   [hidden] { display: none }
 &lt;/style&gt;
 
-&ltscript&gt;
+&lt;script&gt;
   if (document.documentElement.hidden === undefined) {
     Object.defineProperty(Element.prototype, "hidden", {
       set: function(value) {
@@ -376,11 +376,11 @@ div.classList.add('order-state-canceled');
       }
     });
   }
-&lt/script&gt;
+&lt;/script&gt;
 
-&ltdiv&gt;Текст&lt/div&gt;
-&ltdiv hidden&gt;С атрибутом hidden&lt/div&gt;
-&ltdiv id="last"&gt;Со свойством hidden&lt/div&gt;
+&lt;div&gt;Текст&lt;/div&gt;
+&lt;div hidden&gt;С атрибутом hidden&lt;/div&gt;
+&lt;div id="last"&gt;Со свойством hidden&lt;/div&gt;
 
 &lt;script&gt;
   last.hidden = true;
