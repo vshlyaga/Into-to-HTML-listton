@@ -15,7 +15,6 @@ html, body{
 
 .main-article{
   padding:10px;
-  background: #fbf6f6;
   margin:10px;
 }
 
@@ -29,7 +28,7 @@ footer{
 }
 
 footer>p{
-  background: #fda;
+  margin-top:20px;
   min-width:500px;
   width:70%;
   display: inline-block;
@@ -59,4 +58,6 @@ p{
   margin-top:5px;
 }
 
-
+form{
+  width: 50%;
+}
