@@ -66,3 +66,7 @@ form{
   width: 50%;
   margin:auto;
 }
+
+form>p{
+  text-align:center;
+}
