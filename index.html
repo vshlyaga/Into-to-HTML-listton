@@ -18,24 +18,24 @@
         <p><strong>Узел DOM – это объект, поэтому, как и любой объект в JavaScript, он может содержать пользовательские свойства и методы.</strong></p>
         <p>Например, создадим в <code> document.body </code> новое свойство и запишем в него объект:</p>
 
-        <code><pre>
+        <code>
   document.body.myData = {
     name: 'Петр',
     familyName: 'Петрович'
   };
 
   alert( document.body.myData.name ); // Петр
-        </pre></code>
+        </code>
 
         <p>Можно добавить и новую функцию:</p>
 
-        <code><pre>
+        <code>
   document.body.sayHi = function() {
     alert( this.nodeName );
   }
 
   document.body.sayHi(); // BODY, выполнилась с правильным this
-        </pre></code>
+        </code>
 
         <p>Нестандартные свойства и методы видны только в JavaScript и никак не влияют на отображение соответствующего тега.</p>
         <p>Обратим внимание, пользовательские DOM-свойства:</p>
@@ -70,15 +70,15 @@
 
         <p>Рассмотрим отличия между DOM-свойствами и атрибутами на примере HTML-кода:</p>
 
-        <code><pre>
+        <code>
 &lt;body&gt;
   &lt;div id="elem" about="Elephant" class="smiling" &gt;&lt;/div&gt;
 &lt;/body&gt;
-        </pre></code>
+       </code>
 
         <p>Пример ниже устанавливает атрибуты и демонстрирует их особенности.</p>
 
-        <code><pre>
+        <code>
 &lt;body&gt;
  &lt;div id="elem" about="Elephant"&gt; &lt;/div&gt;
 
@@ -94,7 +94,7 @@
   }
  &lt;/script&gt;
 &lt;/body&gt;
-        </pre></code>
+        </code>
 
         <p>При запуске кода выше обратите внимание:</p>
         <ol>
@@ -115,7 +115,7 @@
         <p>Синхронизация не гарантирует одинакового значения в атрибуте и свойстве.</p>
         <p>Для примера, посмотрим, что произойдет с атрибутом <code>"href"</code> при изменении свойства:</p>
 
-        <code><pre>
+        <code>
 &lt;a id="a" href="#"&gt;&lt;/a&gt;
 &lt;script&gt;
   a.href = '/';
@@ -124,7 +124,7 @@
   alert( 'свойство:' + a.href );  // полный URL
 
 &lt;/script&gt;
-        </pre></code>
+        </code>
 
         <p>Это происходит потому, что атрибут может быть любым, а свойство <code>href</code>, <a href="">в соответствии со спецификацией W3C</a>, должно быть полной ссылкой.</p>
         <p>Стало быть, если мы хотим именно то, что в HTML, то нужно обращаться через атрибут.</p>
@@ -134,7 +134,7 @@
           <p>Кстати, есть и другие атрибуты, которые не копируются в точности. Например, DOM-свойство <code>input.checked</code> имеет логическое значение <code>true/false</code>, а HTML-атрибут <code>checked</code> – любое строковое, важно лишь его наличие.</p>
           <p>Работа с <code>checked</code> через атрибут и свойство:</p>
 
-          <code><pre>
+          <code>
 &lt;input id="input" type="checkbox" checked&gt;
 
 &lt;script&gt;
@@ -146,14 +146,14 @@
   alert( input.checked ); // false &lt;-- может быть только true/false
   input.checked = true; // поставить галочку (при этом атрибут в элементе не появится)
 &lt;/script&gt;
-          </pre></code>
+          </code>
         </mark>
         <h3>Исходное значение value</h3>
         <p>Изменение некоторых свойств обновляет атрибут. Но это скорее исключение, чем правило.</p>
         <p><strong>Чаще синхронизация – односторонняя: свойство зависит от атрибута, но не наоборот.</strong></p>
         <p>Например, при изменении свойства <code>input.value</code> атрибут <code>input.getAttribute('value')</code> не меняется:</p>
 
-        <code><pre>
+        <code>
 &lt;body&gt;
   &lt;t id="input" type="text" value="markup"&gt;
   &lt;script&gt;
@@ -162,10 +162,10 @@
     alert( input.getAttribute('value') ); // 'markup', не изменилось!
   &lt;/script&gt;
 &lt;/body&gt;
-          </pre></code>
+          </code>
           <p>То есть, изменение DOM-свойства <code>value</code> на атрибут не влияет, он остаётся таким же.</p>
           <p>А вот изменение атрибута обновляет свойство:</p>
-          <code><pre>
+          <code>
 &lt;body&gt;
   &lt;input id="input" type="text" value="markup"&gt;
   &lt;script&gt;
@@ -174,7 +174,7 @@
     alert( input.value ); // 'new', input.value изменилось!
   &lt;/script&gt;
 &lt;/body&gt;
-          </pre></code>
+          </code>
           <p>Эту особенность можно красиво использовать.</p>
           <p>Получается, что атрибут <code>input.getAttribute('value')</code> хранит оригинальное (исходное) значение даже после того, как пользователь заполнил поле и свойство изменилось.</p>
           <p>Например, можно взять изначальное значение из атрибута и сравнить со свойством, чтобы узнать, изменилось ли значение. А при необходимости и перезаписать свойство атрибутом, отменив изменения.</p>
@@ -184,7 +184,7 @@
           <p>Так как слово <code>"class"</code> является зарезервированным словом в Javascript, то при проектировании DOM решили, что соответствующее свойство будет называться <code>className</code>.</p>
           <p>Например:</p>
 
-           <code><pre>
+           <code>
 &lt;body class="main page"&gt;
   &lt;script&gt;
     // прочитать класс элемента
@@ -194,7 +194,7 @@
     document.body.className = "class1 class2";
   &lt;/script&gt;
 &lt;/body&gt;
-          </pre></code>
+          </code>
           <p>Кстати, есть и другие атрибуты, которые называются иначе, чем свойство. Например, атрибуту <code>for (&lt;label for="..."&gt;)</code> соответствует свойство с названием <code>htmlFor</code>.</p>
 
           <h2>Классы в виде объекта: classList</h2>
@@ -212,7 +212,7 @@
 
           <p>Кроме того, можно перебрать классы через <code>for</code>, так как <code>classList</code> – это псевдо-массив.</p>
           <p>Например:</p>
-          <code><pre>
+          <code>
 &lt;body class="main page"&gt;
   &lt;script&gt;
     var classList = document.body.classList;
@@ -229,7 +229,7 @@
     alert( document.body.className ); // main post, тоже работает
   &lt;/script&gt;
 &lt;/body&gt;
-          </pre></code>
+          </code>
 
           <h2>Нестандартные атрибуты</h2>
           <p>У каждого элемента есть некоторый набор стандартных свойств, например для <code>&lt;a&gt;</code> это будут <code>href</code>, <code>name</code>, а для <code>&lt;img&gt;</code> это будут <code>src</code>, <code>alt</code>, и так далее.</p>
@@ -237,19 +237,19 @@
           <p>Для нестандартных атрибутов DOM-свойство не создаётся.</p>
           <p>Например:</p>
 
-          <code><pre>
+          <code>
 &lt;div id="elem" href="http://ya.ru" about="Elephant"&gt;&lt;/div&lt;
 
 &gt;script&lt;
   alert( elem.id ); // elem
   alert( elem.about ); // undefined
 &lt;/script&gt;
-          </pre></code>
+          </code>
 
           <p>Свойство является стандартным, только если оно описано в стандарте именно для этого элемента.</p>
           <p>То есть, если назначить элементу <code>&lt;img&gt;</code> атрибут <code>href</code>, то свойство <code>img.href</code> от этого не появится. Как, впрочем, и если назначить ссылке <code>&lt;a&gt;</code> атрибут <code>alt</code>:</p>
 
-          <code><pre>
+          <code>
 &lt;img id="img" href="test"&gt;
 &lt;a id="link" alt="test"&gt;&lt;/a&gt;
 
@@ -257,12 +257,12 @@
   alert( img.href ); // undefined
   alert( link.alt ); // undefined
 &lt;/script&gt;
-          </pre></code>
+          </code>
 
           <p>Нестандартные атрибуты иногда используют для CSS.</p>
           <p>В примере ниже для показа «состояния заказа» используется атрибут <code>order-state</code>:</p>
 
-          <code><pre>
+          <code>
 &lt;style&gt;
   .order[order-state="new"] {
     color: green;
@@ -288,23 +288,23 @@
 &lt;div class="order" order-state="canceled"&gt;
   Заказ отменён.
 &lt;/div&gt;
-          </pre></code>
+          </code>
 
           <p>Почему именно атрибут? Разве нельзя было сделать классы <code>.order-state-new</code>, <code>.order-state-pending</code>, <code>.order-state-canceled</code>?</p>
           <p>Конечно можно, но манипулировать атрибутом из JavaScript гораздо проще.</p>
           <p>Например, если нужно отменить заказ, неважно в каком он состоянии сейчас – это сделает код:</p>
 
-          <code><pre>
+          <code>
 div.setAttribute('order-state', 'canceled')
 ;
-          </pre></code>
+          </code>
 
           <p>Для классов – нужно знать, какой класс у заказа сейчас. И тогда мы можем снять старый класс, и поставить новый:</p>
 
-          <code><pre>
+          <code>
 div.classList.remove('order-state-new');
 div.classList.add('order-state-canceled');
-          </pre></code>
+          </code>
 
           <p>…То есть, требуется больше исходной информации и надо написать больше букв. Это менее удобно.</p>
           <p>Проще говоря, значение атрибута – произвольная строка, значение класса – это «есть» или «нет», поэтому естественно, что атрибуты «мощнее» и бывают удобнее классов как в JS так и в CSS.</p>
@@ -314,7 +314,7 @@ div.classList.add('order-state-canceled');
           <p>С помощью нестандартных атрибутов можно привязать к элементу данные, которые будут доступны в JavaScript.</p>
           <p>Как правило, это делается при помощи атрибутов с названиями, начинающимися на <code>data-</code>, например:</p>
 
-          <code><pre>
+          <code>
 &lt;div id="elem" data-about="Elephant" data-user-location="street"&gt;
   По улице прошёлся слон. Весьма красив и толст был он.
 &lt;/div&gt;
@@ -322,12 +322,12 @@ div.classList.add('order-state-canceled');
   alert( elem.getAttribute('data-about') ); // Elephant
   alert( elem.getAttribute('data-user-location') ); // street
 &lt;/script&gt;
-          </pre></code>
+          <</code>
 
           <p><a href="">Стандарт HTML5</a> специально разрешает атрибуты <code>data-*</code> и резервирует их для пользовательских данных.</p>
           <p>При этом во всех браузерах, кроме IE10-, к таким атрибутам можно обратиться не только как к атрибутам, но и как к свойствам, при помощи специального свойства <code>dataset</code>:</p>
 
-          <code><pre>
+          <code>
 &lt;div id="elem" data-about="Elephant" data-user-location="street"&gt;
   По улице прошёлся слон. Весьма красив и толст был он.
 &lt;/div&gt;
@@ -335,7 +335,7 @@ div.classList.add('order-state-canceled');
   alert( elem.dataset.about ); // Elephant
   alert( elem.dataset.userLocation ); // street
 &lt;/script&gt;
-          </pre></code>
+          </code>
 
           <p>Обратим внимание – название <code>data-user-location</code> трансформировалось в <code>dataset.userLocation</code>. Дефис превращается в большую букву.</p>
 
@@ -343,7 +343,7 @@ div.classList.add('order-state-canceled');
           <p>Для старых браузеров современные атрибуты иногда нуждаются в полифилле. Как правило, такой полифилл включает в себя не только JavaScript, но и CSS.</p>
           <p>Этот атрибут должен прятать элемент, действие весьма простое, для его поддержки в HTML достаточно такого CSS:</p>
 
-          <code><pre>
+          <code>
 &lt;style&gt;
   [hidden] { display: none }
 &lt;/style&gt;
@@ -355,13 +355,13 @@ div.classList.add('order-state-canceled');
 &lt;script&gt;
   last.hidden = true;
 &lt;/script&gt;
-          </pre></code>
+          </code>
 
           <p>Если запустить в IE11- пример выше, то <code>&lt;div hidden&gt;</code> будет скрыт, а вот последний <code>div</code>, которому поставили свойство <code>hidden</code> в JavaScript – по-прежнему виден.</p>
           <p>Это потому что CSS «не видит» присвоенное свойство, нужно синхронизировать его в атрибут.</p>
           <p>Вот так – уже работает:</p>
 
-          <code><pre>
+          <code>
 &ltstyle&gt;
   [hidden] { display: none }
 &lt/style&gt;
@@ -386,7 +386,7 @@ div.classList.add('order-state-canceled');
 &lt;script&gt;
   last.hidden = true;
 &lt;/script&gt;
-          </pre></code>
+          </code>
 
           <h2>Итого</h2>
           <ul>
