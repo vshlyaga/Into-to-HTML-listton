@@ -6,13 +6,12 @@ html, body{
 }
 
 .wrap{
-  width:90%;
+  width:85%;
   min-width:1240px;
   margin:auto;
   margin-top:10px;
   margin-bottom:10px;
   background: #fbf6f6;
-  text-align:center;
 }
 
 .main-article{
@@ -62,4 +61,5 @@ p{
 
 form{
   width: 50%;
+  margin:auto;
 }
