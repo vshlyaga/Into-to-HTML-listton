@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <blockquote class="wrap">
+    <div class="wrap">
+    <blockquote>
       <article class="main-article">
         <h1>Атрибуты и DOM-свойства</h1>
         <p>При чтении HTML браузер генерирует DOM-модель. При этом большинство стандартных HTML-атрибутов становятся свойствами соответствующих объектов.</p>
@@ -437,10 +438,8 @@ div.classList.add('order-state-canceled');
 
           <p>Если вы хотите использовать собственные атрибуты в HTML, то помните, что атрибуты с именем, начинающимся на <code>data-</code> валидны в HTML5 и современные браузеры поддерживают доступ к ним через свойство <code>dataset</code>.</p>
          </article>
-        <footer>
-          <p>Статья взята с сайта <a href="https://learn.javascript.ru">https://learn.javascript.ru</a>, ссылка на статью: <a href="https://learn.javascript.ru/attributes-and-custom-properties">https://learn.javascript.ru/attributes-and-custom-properties</a></p> 
-        </footer>
       </blockquote>
+    </div>
       <form name="comment-form">
         <fieldset>
           <legend>Оставить комментарий:</legend>
@@ -451,5 +450,8 @@ div.classList.add('order-state-canceled');
         </fieldset>
         <p><input type="submit" value="Отправить"></p>
       </form>
+    <footer>
+      <p>Статья взята с сайта <a href="https://learn.javascript.ru">https://learn.javascript.ru</a>, ссылка на статью: <a href="https://learn.javascript.ru/attributes-and-custom-properties">https://learn.javascript.ru/attributes-and-custom-properties</a></p> 
+    </footer>
     </body>
   </html>
